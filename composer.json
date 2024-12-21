@@ -1,0 +1,18 @@
+{
+    "name": "kevin1026/zafkiel",
+    "description": "Zafkiel is a PHP library that lets developers design the backoffice of their websites with modules.",
+    "type": "library",
+    "license": "LGPL v3",
+    "autoload": {
+        "psr-4": {
+            "Kevin1026\\Zafkiel\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Kévin BENTO",
+            "email": "kevin.bento@free.fr"
+        }
+    ],
+    "require": {}
+}
