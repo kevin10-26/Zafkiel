@@ -2,6 +2,12 @@
 
 namespace Zafkiel\Mapper;
 
+use Zafkiel\TransferObject;
+
+/**
+ * 
+ */
+
 class ObjectMapper
 {
     private $data = [];

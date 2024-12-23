@@ -33,8 +33,6 @@ class Parser implements iParser
     private ?ObjectMapper $_data = null;
 
     /**
-     * Parses an input according to the mode passed as a parameter.
-     * 
      * @since v0.1.0
      * @see Zafkiel\Mapper\ObjectMapper
      * 
@@ -51,11 +49,10 @@ class Parser implements iParser
     }
 
     /**
-     * Parses an input according to the mode in parameter.
+     * Parses an input according to the mode passed as a parameter. Should be used with the get() method, to get it in a readable format
+     * @see Zafkiel\Parser\Parser->get() method
      * 
      * @since v0.1.0
-     * @see Zafkiel\Parser\Parser->get() method
-     * @see $this->json() and $this->content()
      * 
      * @param string $mode : used to parse the string according to its source : json / classic array, into an array recognized by the class.
      * 
@@ -70,7 +67,7 @@ class Parser implements iParser
     }
 
     /**
-     * Gets data returned by the parse() method of the same class.
+     * Gets data returned by the parse() method of the same class. It is then used in a module to display content.
      * 
      * @since v0.1.0
      * 
