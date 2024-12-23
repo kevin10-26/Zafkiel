@@ -1,0 +1,1 @@
+{"version":1,"defects":{"ParserTest::testParseJson":8,"Zafkiel\\Tests\\Unit\\ParserTest::testParseJson":8,"Zafkiel\\Tests\\Unit\\ParserTest::testParseHTTP":7},"times":{"ParserTest::testParseJson":0.016,"Zafkiel\\Tests\\Unit\\ParserTest::testParseJson":0.005,"Zafkiel\\Tests\\Unit\\ParserTest::testParseHTTP":0.018}}
