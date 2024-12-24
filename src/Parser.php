@@ -3,18 +3,19 @@
 /*
  * This file is part of Zafkiel.
  *
- * (c) Kévin BENTO <kevin.bento@free.fr>
+ * (c) BENTO Kévin <kevin.bento@free.fr>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
-namespace Zafkiel\Parser;
+namespace Zafkiel;
 
 require(__DIR__ . '/iParser.php');
 
-use Zafkiel\Parser\iParser;
-use Zafkiel\Mapper\ObjectMapper;
+use Zafkiel\iParser;
+use Zafkiel\ObjectMapper;
+use Zafkiel\TransferObject;
 
 /**
  * Parser for Zafkiel, designed for specific mapping returned by Zafkiel\Mapper\ObjectMapper
@@ -29,8 +30,8 @@ use Zafkiel\Mapper\ObjectMapper;
 
 class Parser implements iParser
 {
-    private array $_parsedData   = [];
-    private ?ObjectMapper $_data = null;
+    private string|array $_parsedData     = [];
+    private ?TransferObject $_data        = null;
 
     /**
      * @since v0.1.0
@@ -41,11 +42,11 @@ class Parser implements iParser
      *      @type array $key data {} : the data inside, which will be parsed
      * }
      * 
-     * @return Parser : should be called with get() method of the same class.
+     * @return void;
      */
     public function __construct($data)
     {
-        $this->_data['data'] = $data;
+        $this->_data = $data;
     }
 
     /**
@@ -61,6 +62,7 @@ class Parser implements iParser
 
     public function parse($mode) : Parser
     {
+        $mode = sprintf('%s%s', '_', $mode);
         $this->$mode();
         
         return $this;
@@ -75,7 +77,7 @@ class Parser implements iParser
      * @see Zafkiel\Parser\Parser->parse() method
      */
 
-    public function get() : Array
+    final public function get() : string|Array
     {
         return $this->_parsedData;
     }
@@ -90,9 +92,9 @@ class Parser implements iParser
      * @see Zafkiel\Parser\Parser->__construct method
      */
 
-    private function json() : void
+    private function _json() : void
     {
-        $this->_parsedData = json_encode($this->_data);
+        $this->_parsedData = json_encode($this->_data->getContent());
     }
 
     /**
@@ -108,7 +110,7 @@ class Parser implements iParser
      * @see Zafkiel\Parser\Parser->__construct method
      */
 
-    private function content() : void
+    private function _content() : void
     {
         $this->_parsedData = $this->_data['data'];
     }
