@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Zafkiel\Parser;
+namespace Zafkiel;
 
 interface iParser
 {
     public function parse($mode) : Parser;
-    public function get() : Array;
+    public function get()        : string|Array;
 }
