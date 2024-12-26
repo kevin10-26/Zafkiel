@@ -2,7 +2,7 @@
     "name": "zafkiel/core",
     "description": "Zafkiel is a PHP library that lets developers design the backoffice of their websites with modules.",
     "type": "library",
-    "license": "LGPL-2.1 license",
+    "license": "LGPL-2.1-or-later",
     "autoload": {
         "psr-4": {
             "Kevin1026\\Zafkiel\\": "./"
