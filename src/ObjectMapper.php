@@ -9,16 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Zafkiel\Mapper;
+namespace Zafkiel;
 
 require(__DIR__ . '/Mapper.php');
-require(__DIR__ . '/../TransferObject.php');
+require(__DIR__ . '/TransferObject.php');
 
 use Zafkiel\TransferObject;
 
 /**
- * Mapper for Zafkiel, designed for specific parsing returned by Zafkiel\Parser
- * @see Zafkiel\Parser
+ * Mapper for Zafkiel, designed for specific parsing returned by Zafkiel\ObjectParser
+ * @see Zafkiel\ObjectParser
  * 
  * @package Zafkiel-Core
  * @since v0.1.0
@@ -52,12 +52,10 @@ class ObjectMapper implements Mapper
     }
 
    /**
-     * Maps an input to set it via the DTO, make it readable to work with modules.
+     * Maps an input to set it via the DTO, making it readable to work with modules.
      * @see Zafkiel\TransferObject class
      * 
      * @since v0.1.0
-     * 
-     * @param string $mode : used to parse the string according to its source : json / classic array, into an array recognized by the class.
      * 
      * @return ObjectMapper : should be called with getMappedData() method of the same class.
      */
@@ -70,16 +68,36 @@ class ObjectMapper implements Mapper
         return $this;
     }
 
+    /**
+     * Returns the DTO that contains data about the module used and the input.
+     * 
+     * @since v0.1.0
+     * 
+     * @return TransferObject $this->_parsedData : should be called after the mapData() method of the same class.
+     * @see Zafkiel\ObjectParser->mapData() method
+     */
+
     final public function getMappedData() : TransferObject
     {
         return $this->_data;
     }
 
+    /**
+     * Used to build the object that will be inserted into the DTO. The data will be able to be processed by modules.
+     * 
+     * @since v0.1.0
+     * 
+     * @return array {
+     *      @type string $key module : specifies the module
+     *      @type array $key data {} : the data inside, which will be parsed
+     * }
+     */
+
     private function _buildData()
     {
         return array(
-            'module' => $this->_module,
-            'data'   => $this->_input
+            'module'  => $this->_module,
+            'data'    => $this->_input
         );
     }
 }
