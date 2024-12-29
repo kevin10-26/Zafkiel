@@ -7,6 +7,8 @@ class TransferObject
     private ?array $_content = null;
     private string $_module  = "";
 
+    public string $version = 'v0.1.0';
+
     final public function setBody($body)
     {
         $this->_content = $body;
@@ -20,5 +22,10 @@ class TransferObject
     final public function getModule()
     {
         return $this->_module;
+    }
+
+    final public function getVersion()
+    {
+        return $this->version;
     }
 }
