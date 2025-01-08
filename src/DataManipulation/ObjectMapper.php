@@ -31,7 +31,6 @@ class ObjectMapper implements Mapper
 {
     private ?TransferObject $_data = null;
     private array $_input          = array();
-    private string $_module        = "";
 
     /**
      * @since v0.1.0
@@ -45,10 +44,8 @@ class ObjectMapper implements Mapper
      * @return void;
      */
 
-    public function __construct(Array $input, string $module) {
-        $this->_data   = new TransferObject();
-        $this->_input  = $input;
-        $this->_module = $module;
+    public function __construct(Array $input) {
+        $this->_input = $input;
     }
 
    /**
