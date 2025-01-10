@@ -12,16 +12,17 @@ class Generator extends TwigRenderer
     final const TEMPLATE_DESKTOP_FILE = 'zafkiel_desktop_template.html';
     final const TEMPLATE_MODULE_FILE  = 'zafkiel_module_template.html';
 
-    public array $modules = [];
-    public array $rules   = [];
+    public array $modules    = [];
+    public ?array $rules     = [];
+    public ?string $template = '';
 
     public function __construct(
-        Factory $modules,
-        RulesManager $rules
+        array $modules,
+        Factory $template
     )
     {  
-        $this->modules = $modules;
-        $this->rules   = $rules;
+        $this->modules    = $modules;
+        $this->template   = $template;
     }
 
     public function generate()
@@ -32,8 +33,8 @@ class Generator extends TwigRenderer
     private function _retrieveData()
     {
         return array(
-            'modules' => $this->modules,
-            'rules' => $this->rules
+            'modules'  => $this->modules,
+            'template' => $this->template
         );
     }
 }
