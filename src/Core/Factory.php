@@ -15,7 +15,7 @@ class Factory implements BackofficeFactory
 
     public string $module;
     public array $cData;
-    private ?string $_templatesLocation;
+    public ?string $templatesLocation;
 
     public string $_content;
 
@@ -27,7 +27,7 @@ class Factory implements BackofficeFactory
     {
         $this->module             = $module;
         $this->cData              = $data;
-        $this->_templatesLocation = $templatesLocation;
+        $this->templatesLocation = $templatesLocation;
     }
 
     public function importHTML(string $source) : Factory
@@ -51,7 +51,7 @@ class Factory implements BackofficeFactory
 
     private function execSourceTemplate($source) : string
     {
-        $twigEnv = new TwigRenderer($this->_templatesLocation);
+        $twigEnv = new TwigRenderer($this->templatesLocation);
 
         return $twigEnv->render($source, $this->cData);
     }
