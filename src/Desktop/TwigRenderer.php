@@ -24,7 +24,8 @@ class TwigRenderer implements Renderer
     private function instantiate()
     {
         $loader = new \Twig\Loader\FilesystemLoader($this->_templatesLocation);
-        $twig = new \Twig\Environment($loader);
+        $twig = new \Twig\Environment($loader, ['debug' => true]);
+        $twig->addExtension(new \Twig\Extension\DebugExtension());
 
         return $twig;
     }

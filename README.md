@@ -4,3 +4,5 @@ Zafkiel is a PHP library that lets developers design the backoffice of their web
 ## Getting started
 First, add Zafkiel to your project via Composer :
 `composer require kevin10-26/Zafkiel`
+
+Still in development. Made it public for testing purposes
