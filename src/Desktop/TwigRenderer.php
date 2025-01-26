@@ -17,7 +17,7 @@ class TwigRenderer implements Renderer
     }
     
     public function render($template, $data = []) : string
-    {        
+    {
         return $this->_renderer->render("$template", $data);
     }
 

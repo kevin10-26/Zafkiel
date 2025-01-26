@@ -13,33 +13,30 @@ class Factory implements BackofficeFactory
 {
     public RulesManager $rulesManager;
 
-    public string $module;
     public array $cData;
     public ?string $templatesLocation;
 
-    public string $_content;
+    public array $content;
 
     public function __construct(
-        string $module,
         array $data,
         string $templatesLocation = "",
     )
     {
-        $this->module             = $module;
         $this->cData              = $data;
-        $this->templatesLocation = $templatesLocation;
+        $this->templatesLocation  = $templatesLocation;
     }
 
     public function importHTML(string $source) : Factory
     {
-        $this->_content = $this->execSourceTemplate($source);
+        $this->content = $this->execSourceTemplate($source);
 
         return $this;
     }
 
-    public function getContent() : string
+    public function getContent() : array
     {
-        return $this->_content;
+        return $this->content;
     }
 
     public function pushBlock(string $node) : array
@@ -49,10 +46,18 @@ class Factory implements BackofficeFactory
         return $rulesManager->addRule($node)->getLastInsertedRule();
     }
 
-    private function execSourceTemplate($source) : string
+    private function execSourceTemplate() : array
     {
         $twigEnv = new TwigRenderer($this->templatesLocation);
+        $templates = [];
 
-        return $twigEnv->render($source, $this->cData);
+        foreach(glob($this->templatesLocation . '*.html') as $template)
+        {
+            $module = strstr(basename($template), '.', true);
+            
+            $templates[$module] = $twigEnv->render(basename($template), $this->cData['items'][$module]['data']);
+        }
+
+        return $templates;
     }
 }
