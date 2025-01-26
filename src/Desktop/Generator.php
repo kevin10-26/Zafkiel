@@ -18,28 +18,22 @@ class Generator extends AdminManager
         'Disconnected' => '#952123'
     );
 
-    public array $modules      = [];
-    public ?array $rules       = [];
-    public array $currentAdmin = [];
+    public ?array $rules        = [];
+    public array $currentAdmin  = [];
     
     public Factory $template;
 
     private string $_session;
 
     public function __construct(
-        array $modules,
-        string $baseDir,
+        array $userConf,
         Factory $template,
         string $session
     )
     {  
-        $this->modules       = $modules;
-        $this->template      = $template;
-        $this->_session      = $session;
-
-        // Needs to check whether thenuser added a slash at the end of the dir
-        // To avoid issues while opening the config file.
-        $this->_baseDir      = (substr($baseDir, 0, -1) !== '/') ? $baseDir . '/' : $baseDir;
+        $this->_userConf       = $userConf;
+        $this->template       = $template;
+        $this->_session       = $session;
     }
 
     public function generate() : string
@@ -60,33 +54,15 @@ class Generator extends AdminManager
 
         $data['currentAdmin'] = $this->getAdmin($this->_session);
 
-        $this->currentAdmin = $data['currentAdmin'];
-
         return $data;
     }
 
     private function _retrieveData() : array
     {
         return array(
-            'modules'      => $this->modules,
-            'templates'    => $this->template->getContent(),
-            'adminData'    => $this->getAdminData(),
-            'preferences'  => $this->_getPreferences(),
-            'baseDir'      => $this->_baseDir
+            'userConf'      => $this->_userConf,
+            'templates'     => $this->template->getContent(),
+            'adminData'     => $this->getAdminData()
         );
-    }
-
-    private function _getPreferences() : array
-    {
-        $adminPreferences = $this->currentAdmin['additionnal_data']['preferences'];
-        $background = new Background(__DIR__ . '/../Templates/img/backgrounds/', $adminPreferences['backgroundPictures']);
-
-        if ($adminPreferences['background'] === 'userPicture')
-        {
-            return $adminPreferences['backgroundPictures'];
-        } else
-        {
-            return $background->getBackground()->getPicturesData();
-        }
     }
 }
