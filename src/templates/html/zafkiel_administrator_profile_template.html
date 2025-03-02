@@ -1,81 +1,91 @@
-<div id="admin-profile" class="module-tab-content hidden w-3/4 p-4 overflow-y-auto">
+<div id="admin-profile" class="module-tab-content relative hidden w-3/4 p-4 overflow-y-auto">
+    <div id="warning-profile-message" class="fixed top-2 right-5 h-10 hidden flex-row justify-between items-center text-center">
+        <div class="h-full bg-yellow-600 px-4 py-2 rounded-l-md">
+            You have some unsaved changes. Please save them before leaving!
+        </div>
+        <div class="flex justify-center items-center h-full bg-yellow-700 px-4 py-2 rounded-r-md text-xl hover:cursor-pointer" onclick="toggleChangesWarning();">
+            &times;
+        </div>
+    </div>
+
     <h1 class="text-3xl font-semibold mb-6">My admin profile</h1>
 
-    <form class="p-4">
-        <div class="grid grid-cols-2">
-
-            <div class="w-fit">
-                <img class="w-36 h-36 rounded-full" src="{{ adminData['currentAdmin']['additionnal_data']['profile_picture'] }}" alt="Your profile picture." />
-
-                <div>
-                    <label class="block mt-4 mx-auto px-4 py-2 text-center border-solid border-gray-400 rounded-md hover:border-2 hover:bg-gray-200 hover:text-stone-800 hover:cursor-pointer transition-all" for="change-profile-picture">Choose a file</label><br />
-                    <input class="hidden" type="file" id="change-profile-picture" placeholder="Change my profile picture..." />
-                </div>
-            </div>
+    <form id="change-admin-data" class="grid grid-cols-2 p-4">
+        
+        {% include './components/profile/save_all_btn.html' %}
+        
+        <div class="w-fit place-self-center">
+            <img class="w-36 h-36 rounded-full" src="{{ adminData['currentAdmin']['additionnal_data']['profile_picture'] }}" alt="Your profile picture." />
 
             <div>
-                <div>
-                    <label for="admin-first-name" class="underline">Your first name</label><br />
-                    <input type="text" id="admin-first-name" class="w-3/4 px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Type in your first name..." value="{{ adminData['currentAdmin']['additionnal_data']['firstName'] }}" onkeyup="updateAdminProfilData(event, )" />
-                </div>
-
-                <div class="mt-4">
-                    <label for="admin-first-name" class="underline">Your last name</label><br />
-                    <input type="text" id="admin-last-name" class="w-3/4 px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Type in your last name..." value="{{ adminData['currentAdmin']['additionnal_data']['lastName'] }}" />
-                </div>
+                <label class="block mt-4 mx-auto px-4 py-2 text-center border-solid border-gray-400 rounded-md hover:border-2 hover:bg-gray-200 hover:text-stone-800 hover:cursor-pointer transition-all" for="change-profile-picture">Choose a file</label><br />
+                <input class="hidden" type="file" id="change-profile-picture" placeholder="Change my profile picture..." />
             </div>
-
-            <div class="mr-6">
-                <label for="admin-username" class="underline">Your username</label>
-                <input type="text" id="admin-username" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Type in your username..." value="{{ adminData['currentAdmin']['name'] }}" />
-            </div>
-            
-            <div>
-                <label for="admin-email" class="underline">Your email address</label>
-                <input type="text" id="admin-email" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Type in your email address..." value="{{ adminData['currentAdmin']['email_addr'] }}" />
-            </div>
-
-            <div class="col-span-2 mt-6">
-                <p class="text-2xl font-semibold mb-2">
-                    Change my password
-                </p>
-
-                <div class="flex flex-row justify-between items-center gap-x-4">
-                    <div class="w-full">
-                        <label for="admin-email" class="underline">New password</label>
-                        <input type="text" id="admin-email" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Type in your new password..." />
-                    </div>
-    
-                    <div class="w-full">
-                        <label for="admin-email" class="underline">Confirm password</label>
-                        <input type="text" id="admin-email" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Confirm your new password..." />
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-6 col-span-2">
-                <p class="text-2xl font-semibold mb-2">
-                    Coordinates
-                </p>
-
-                <div class="flex flex-row justify-between items-center gap-x-4">
-                    <div class="w-full">
-                        <label for="admin-address" class="underline">Address</label>
-                        <input type="text" id="admin-address" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Type in your address..." />
-                    </div>
-    
-                    <div class="w-full">
-                        <label for="admin-city-code" class="underline">City code</label>
-                        <input type="text" id="admin-city-code" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Type in your city code..." />
-                    </div>
-    
-                    <div class="w-full">
-                        <label for="admin-city" class="underline">City name</label>
-                        <input type="text" id="admin-city" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Type in your city..." />
-                    </div>
-                </div>
-            </div>
-
         </div>
+
+        <div>
+            <div>
+                <label for="admin-first-name" class="underline">Your first name</label><br />
+                <input type="text" id="admin-first-name" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Type in your first name..." value="{{ adminData['currentAdmin']['additionnal_data']['firstName'] }}" />
+            </div>
+
+            <div class="mt-4">
+                <label for="admin-first-name" class="underline">Your last name</label><br />
+                <input type="text" id="admin-last-name" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Type in your last name..." value="{{ adminData['currentAdmin']['additionnal_data']['lastName'] }}" />
+            </div>
+        </div>
+
+        <div class="mr-6">
+            <label for="admin-username" class="underline">Your username</label>
+            <input type="text" id="admin-username" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Type in your username..." value="{{ adminData['currentAdmin']['name'] }}" />
+        </div>
+        
+        <div>
+            <label for="admin-email" class="underline">Your email address</label>
+            <input type="text" id="admin-email" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Type in your email address..." value="{{ adminData['currentAdmin']['email_addr'] }}" />
+        </div>
+
+        <div class="col-span-2 mt-6">
+            <p class="text-2xl font-semibold mb-2">
+                Change my password
+            </p>
+
+            <div class="flex flex-row justify-between items-center gap-x-4">
+                <div class="w-full">
+                    <label for="admin-email" class="underline">New password</label>
+                    <input type="text" id="admin-email" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Type in your new password..." />
+                </div>
+
+                <div class="w-full">
+                    <label for="admin-email" class="underline">Confirm password</label>
+                    <input type="text" id="admin-email" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Confirm your new password..." />
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 col-span-2">
+            <p class="text-2xl font-semibold mb-2">
+                Coordinates
+            </p>
+
+            <div class="flex flex-row justify-between items-center gap-x-4">
+                <div class="w-full">
+                    <label for="admin-address" class="underline">Address</label>
+                    <input type="text" id="admin-address" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Type in your address..." />
+                </div>
+
+                <div class="w-full">
+                    <label for="admin-city-code" class="underline">ZIP / Postal code</label>
+                    <input type="text" id="admin-city-code" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Type in your city code..." />
+                </div>
+
+                <div class="w-full">
+                    <label for="admin-city" class="underline">City name</label>
+                    <input type="text" id="admin-city" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Type in your city..." />
+                </div>
+            </div>
+        </div>
+
+        {% include './components/profile/save_all_btn.html' %}
     </form>
 </div>
