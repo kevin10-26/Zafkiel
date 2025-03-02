@@ -1,0 +1,8 @@
+{
+    "src": "C:/wamp64/www/Zafkiel-Test/src/",
+    "frontend_components": {
+        "server": "public/",
+        "url": "public/"
+    },
+    "pictures": "public/"
+}

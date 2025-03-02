@@ -1,0 +1,44 @@
+{
+    "admin1": {
+        "name": "admin1",
+        "email_addr": "address@sample.com",
+        "password_hash": "$2y$10$YSJ5j8BmgL/fGNJ5oWzcieZs1PVxiP4hdS2lQk6nqwYHExgODfvvO",
+        "status": "root",
+        "session":{
+            "status": "Online"
+        },
+        "api_key": "fqewcohyllvqlqkeechhhmwittvrkaiazyauwgasxyubfwbzrdcgtuwawmxp",
+        "additionnal_data": {
+            "firstName": "John",
+            "lastName": "DOE",
+            "profile_picture": "/public/img/admins/profile_pictures/profile_picture.png",
+            "physical_addr": {
+                "street": "6 rue",
+                "code": "66610",
+                "city": "ville"
+            },
+            "preferences": {
+                "background": "default",
+                "color-palette": {
+                    "name": "alpenglow",
+                    "blocks": "background: rgb(131,58,180); background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);",
+                    "text-color": "#282727"
+                }
+            }
+        }
+    },
+
+    "admin2": {
+        "name": "admin2",
+        "email_addr": "dpo@univ-reims.fr",
+        "password_hash": "$2y$10$YSJ5j8BmgL/fGNJ5oWzcieZs1PVxiP4hdS2lQk6nqwYHExgODfvvO",
+        "status": "Administrator",
+        "api_key": "gkrzfrlgvdkrjzyqqdtrapbojxowwesrbkipnvbgkfeoptslvlreefxmnsqf",
+        "session":{
+            "status": "Disconnected"
+        },
+        "additionnal_data": {
+            "profile_picture": "/vendor/zafkiel/core/src/templates/img/zafkiel_logo.png"
+        }
+    }
+}

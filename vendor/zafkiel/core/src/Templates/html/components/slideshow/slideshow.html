@@ -1,0 +1,18 @@
+<div class="w-full h-full relative">
+
+    <div id="slideshow-desktop-container" class="relative w-full h-screen overflow-hidden">
+        {% for picture in pref %}
+            <div class="slides-desktop absolute inset-0 opacity-0 transition-opacity duration-1000 hidden">
+                <img 
+                    src="{{ picture['path'] }}" 
+                    alt="Image {{ loop.index }}" 
+                    class="w-full h-full object-cover"
+                >
+                <div class="absolute bottom-4 left-4 bg-black bg-opacity-50 text-white p-2 rounded">
+                    {{ picture['filename'] }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    
+</div>

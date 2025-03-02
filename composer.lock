@@ -4,6 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "dd9f0dc9244a0c7f1b8b7c064b034bbf",
     "packages": [
         {
@@ -18,12 +19,31 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/63afe740e99a13ba87ec199bb07bbdee937a5b62",
                 "reference": "63afe740e99a13ba87ec199bb07bbdee937a5b62",
+=======
+    "content-hash": "13ede28fa5b56c46da5c73ad85fa94f7",
+    "packages": [
+        {
+            "name": "symfony/deprecation-contracts",
+            "version": "v3.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/deprecation-contracts.git",
+                "reference": "74c71c939a79f7d5bf3c1ce9f5ea37ba0114c6f6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/74c71c939a79f7d5bf3c1ce9f5ea37ba0114c6f6",
+                "reference": "74c71c939a79f7d5bf3c1ce9f5ea37ba0114c6f6",
+>>>>>>> 6b22355 (First commit)
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.1"
             },
+<<<<<<< HEAD
             "default-branch": true,
+=======
+>>>>>>> 6b22355 (First commit)
             "type": "library",
             "extra": {
                 "thanks": {
@@ -31,7 +51,11 @@
                     "name": "symfony/contracts"
                 },
                 "branch-alias": {
+<<<<<<< HEAD
                     "dev-main": "3.6-dev"
+=======
+                    "dev-main": "3.5-dev"
+>>>>>>> 6b22355 (First commit)
                 }
             },
             "autoload": {
@@ -56,7 +80,11 @@
             "description": "A generic function and convention to trigger deprecation notices",
             "homepage": "https://symfony.com",
             "support": {
+<<<<<<< HEAD
                 "source": "https://github.com/symfony/deprecation-contracts/tree/main"
+=======
+                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.5.1"
+>>>>>>> 6b22355 (First commit)
             },
             "funding": [
                 {
@@ -72,11 +100,19 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2024-09-25T14:21:43+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
             "version": "1.x-dev",
+=======
+            "time": "2024-09-25T14:20:29+00:00"
+        },
+        {
+            "name": "symfony/polyfill-ctype",
+            "version": "v1.31.0",
+>>>>>>> 6b22355 (First commit)
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
@@ -97,7 +133,10 @@
             "suggest": {
                 "ext-ctype": "For best performance"
             },
+<<<<<<< HEAD
             "default-branch": true,
+=======
+>>>>>>> 6b22355 (First commit)
             "type": "library",
             "extra": {
                 "thanks": {
@@ -156,6 +195,7 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
+<<<<<<< HEAD
             "version": "1.x-dev",
             "source": {
                 "type": "git",
@@ -170,6 +210,21 @@
             },
             "require": {
                 "ext-iconv": "*",
+=======
+            "version": "v1.31.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-mbstring.git",
+                "reference": "85181ba99b2345b0ef10ce42ecac37612d9fd341"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/85181ba99b2345b0ef10ce42ecac37612d9fd341",
+                "reference": "85181ba99b2345b0ef10ce42ecac37612d9fd341",
+                "shasum": ""
+            },
+            "require": {
+>>>>>>> 6b22355 (First commit)
                 "php": ">=7.2"
             },
             "provide": {
@@ -178,7 +233,10 @@
             "suggest": {
                 "ext-mbstring": "For best performance"
             },
+<<<<<<< HEAD
             "default-branch": true,
+=======
+>>>>>>> 6b22355 (First commit)
             "type": "library",
             "extra": {
                 "thanks": {
@@ -218,7 +276,11 @@
                 "shim"
             ],
             "support": {
+<<<<<<< HEAD
                 "source": "https://github.com/symfony/polyfill-mbstring/tree/1.x"
+=======
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.31.0"
+>>>>>>> 6b22355 (First commit)
             },
             "funding": [
                 {
@@ -234,11 +296,19 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2024-12-23T08:48:59+00:00"
         },
         {
             "name": "symfony/polyfill-php81",
             "version": "1.x-dev",
+=======
+            "time": "2024-09-09T11:45:10+00:00"
+        },
+        {
+            "name": "symfony/polyfill-php81",
+            "version": "v1.31.0",
+>>>>>>> 6b22355 (First commit)
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php81.git",
@@ -253,7 +323,10 @@
             "require": {
                 "php": ">=7.2"
             },
+<<<<<<< HEAD
             "default-branch": true,
+=======
+>>>>>>> 6b22355 (First commit)
             "type": "library",
             "extra": {
                 "thanks": {
@@ -315,6 +388,7 @@
         },
         {
             "name": "twig/twig",
+<<<<<<< HEAD
             "version": "3.x-dev",
             "source": {
                 "type": "git",
@@ -325,6 +399,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/twigphp/Twig/zipball/fb715039c3701654433d73d958c3d1e0142eeb25",
                 "reference": "fb715039c3701654433d73d958c3d1e0142eeb25",
+=======
+            "version": "v3.18.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twigphp/Twig.git",
+                "reference": "acffa88cc2b40dbe42eaf3a5025d6c0d4600cc50"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/acffa88cc2b40dbe42eaf3a5025d6c0d4600cc50",
+                "reference": "acffa88cc2b40dbe42eaf3a5025d6c0d4600cc50",
+>>>>>>> 6b22355 (First commit)
                 "shasum": ""
             },
             "require": {
@@ -339,7 +425,10 @@
                 "psr/container": "^1.0|^2.0",
                 "symfony/phpunit-bridge": "^5.4.9|^6.4|^7.0"
             },
+<<<<<<< HEAD
             "default-branch": true,
+=======
+>>>>>>> 6b22355 (First commit)
             "type": "library",
             "autoload": {
                 "files": [
@@ -380,7 +469,11 @@
             ],
             "support": {
                 "issues": "https://github.com/twigphp/Twig/issues",
+<<<<<<< HEAD
                 "source": "https://github.com/twigphp/Twig/tree/3.x"
+=======
+                "source": "https://github.com/twigphp/Twig/tree/v3.18.0"
+>>>>>>> 6b22355 (First commit)
             },
             "funding": [
                 {
@@ -392,11 +485,56 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2025-01-06T12:38:16+00:00"
+=======
+            "time": "2024-12-29T10:51:50+00:00"
+        },
+        {
+            "name": "zafkiel/core",
+            "version": "dev-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kevin10-26/Zafkiel.git",
+                "reference": "115b231946cd35cad726441aa8aed7020065f333"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kevin10-26/Zafkiel/zipball/115b231946cd35cad726441aa8aed7020065f333",
+                "reference": "115b231946cd35cad726441aa8aed7020065f333",
+                "shasum": ""
+            },
+            "require": {
+                "twig/twig": "^3.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Zafkiel\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Kévin BENTO",
+                    "email": "kevin.bento@free.fr"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/kevin10-26/Zafkiel/issues",
+                "source": "https://github.com/kevin10-26/Zafkiel/tree/dev"
+            },
+            "time": "2025-01-26T16:35:28+00:00"
+>>>>>>> 6b22355 (First commit)
         }
     ],
     "packages-dev": [],
     "aliases": [],
+<<<<<<< HEAD
     "minimum-stability": "dev",
     "stability-flags": {},
     "prefer-stable": false,
@@ -404,4 +542,15 @@
     "platform": {},
     "platform-dev": {},
     "plugin-api-version": "2.6.0"
+=======
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "zafkiel/core": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
+>>>>>>> 6b22355 (First commit)
 }
