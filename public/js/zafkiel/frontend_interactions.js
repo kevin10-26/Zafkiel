@@ -1,101 +1,132 @@
-'use strict'
+'use strict';
 
-const startSlideshow = (id, slideId) => {
-    const diaporama = document.getElementById(id);
-    const slides = diaporama.getElementsByClassName(slideId);
+/**
+ * @file slideshow.js
+ * @description A module to handle slideshow functionality (image transition and automatic slideshow)
+ * @license MIT
+ */
 
-    if (slides.length === 0) return; // Si aucune image, ne rien faire
+'use strict';
+
+/**
+ * Starts the slideshow by iterating through the slides.
+ * @param {string} containerId - The ID of the container holding the slideshow.
+ * @param {string} slideClass - The class name of the slides.
+ */
+const startSlideshow = (containerId, slideClass) => {
+    const slideshowContainer = document.getElementById(containerId);
+    const slides = slideshowContainer.getElementsByClassName(slideClass);
+
+    if (slides.length === 0) return; // Exit if no slides exist.
 
     let currentIndex = 0;
 
+    /**
+     * Displays the next slide with a fade-in and fade-out transition.
+     */
     const showNextSlide = () => {
         const currentSlide = slides[currentIndex];
-        const nextIndex = (currentIndex + 1) % slides.length; // Calcul de l'index suivant
+        const nextIndex = (currentIndex + 1) % slides.length;
         const nextSlide = slides[nextIndex];
 
-        // Préparer la prochaine image (déjà visible mais avec `opacity-0`)
+        // Show the next slide
         nextSlide.classList.remove("hidden");
         nextSlide.classList.add("opacity-0");
 
-        // Déclencher simultanément le fade-out de l'actuelle et le fade-in de la prochaine
+        // Transition the current slide out and the next slide in
         setTimeout(() => {
             currentSlide.classList.remove("opacity-100");
             currentSlide.classList.add("opacity-0");
 
             nextSlide.classList.remove("opacity-0");
             nextSlide.classList.add("opacity-100");
-        }, 0); // Pas de délai, chevauchement immédiat
+        }, 0);
 
-        // Masquer complètement l'image actuelle après la transition
+        // Hide the current slide after the transition
         setTimeout(() => {
             currentSlide.classList.add("hidden");
-        }, 1000); // Durée égale à la transition CSS (1 seconde)
+        }, 1000); // Matching CSS transition duration
 
-        // Met à jour l'index actuel
+        // Update the current index
         currentIndex = nextIndex;
     };
 
-    // Affiche immédiatement la première image
+    // Initially display the first slide
     slides[currentIndex].classList.remove("opacity-0", "hidden");
     slides[currentIndex].classList.add("opacity-100");
 
-    // Démarrer le défilement automatique
-    setInterval(showNextSlide, 5000); // Change toutes les 5 secondes
+    // Start the slideshow with automatic interval
+    setInterval(showNextSlide, 5000); // Transition every 5 seconds
 };
 
+// Initialize slideshows when the DOM is ready
 document.addEventListener("DOMContentLoaded", () => {
     startSlideshow('slideshow-settings-container', 'slides-settings');
     startSlideshow('slideshow-desktop-container', 'slides-desktop');
 });
 
+
+/**
+ * Manages the display and updates of a snackbar notification.
+ * @param {Object} data - Data for the snackbar notification.
+ * @param {string} mode - Mode to either initialize or alter the snackbar.
+ * @returns {Object} The snackbar instance.
+ */
 const manageSnackbar = (data, mode) => {
     let snackbar = new ZafkielSnackbar();
+    return mode === 'alter' ? snackbar.alter(data) : snackbar.init(data);
+};
 
-    return (mode === 'alter') ? snackbar.alter(data) : snackbar.init(data);
-}
-
+/**
+ * Filters and displays the search results based on the input value.
+ * @param {Event} e - The event triggered by the form input.
+ */
 const displayResults = (e) => {
     e.preventDefault();
 
-    let input = (e.target.name === 'form') ? e.target[0] : e.target,
-        modulesList = document.getElementById('services-list'),
-        modulesContainer = document.getElementById('services-container');
+    let input = e.target.name === 'form' ? e.target[0] : e.target;
+    let modulesList = document.getElementById('services-list');
+    let modulesContainer = document.getElementById('services-container');
 
-    clearNode(document.querySelector('#services-container'));
+    // Clear current module list.
+    clearNode(modulesContainer);
 
-    for (let i = 0; i < modulesList.children.length; i++)
-    {
-        if (modulesList.children[i].value.toLowerCase().indexOf(input.value.toLowerCase()) > -1 || modulesList.children[i].textContent.toLowerCase().indexOf(input.value.toLowerCase()) > -1)
-        {
+    // Filter and display matching services.
+    for (let i = 0; i < modulesList.children.length; i++) {
+        if (modulesList.children[i].value.toLowerCase().includes(input.value.toLowerCase()) ||
+            modulesList.children[i].textContent.toLowerCase().includes(input.value.toLowerCase())) {
             let module = {
                 "alias": modulesList.children[i].value,
                 "name": modulesList.children[i].textContent,
                 "path": modulesList.children[i].dataset.path
-            }
-
+            };
             modulesContainer.appendChild(createModuleNode(module));
-
         }
     }
+};
 
-}
-
-const clearNode = node => {
+/**
+ * Clears all child elements of a given node.
+ * @param {HTMLElement} node - The DOM element to clear.
+ */
+const clearNode = (node) => {
     while (node.firstChild) {
         node.removeChild(node.lastChild);
     }
-}
+};
 
+/**
+ * Creates and returns a module element for display.
+ * @param {Object} module - The module data.
+ * @returns {HTMLElement} The generated module node.
+ */
 const createModuleNode = (module) => {
+    let div = document.createElement('div');
+    let img = document.createElement('img');
+    let p = document.createElement('p');
 
-    let div = document.createElement('div'),
-        img = document.createElement('img'),
-        p   = document.createElement('p');
-    
     div.classList.add('p-4');
-    div.onclick = function(evt) {
-        displayModule(evt, module['alias']);
-    }
+    div.onclick = () => displayModule(module['alias']);
 
     img.classList.add('block', 'w-28', 'h-28', 'mx-auto', 'rounded-full');
     img.src = module['path'];
@@ -108,59 +139,80 @@ const createModuleNode = (module) => {
     div.appendChild(p);
 
     return div;
-}
+};
 
-const displayModule = (e, module) => {
-    let modules = document.getElementsByClassName('module'),
-        i;
+/**
+ * Displays the selected module by hiding other modules.
+ * @param {string} module - The alias of the module to display.
+ */
+const displayModule = (module) => {
+    let modules = document.getElementsByClassName('module');
 
-    for (i = 0; i < modules.length; i++)
-    {
+    for (let i = 0; i < modules.length; i++) {
         modules[i].style.display = 'none';
     }
 
     document.getElementById(module).style.display = 'block';
-}
+};
 
+/**
+ * Displays the selected tab's content.
+ * @param {Event} e - The event triggered by tab selection.
+ * @param {string} tabType - The type of tab (e.g., settings).
+ * @param {string} tab - The ID of the tab content to display.
+ */
 const displayTab = (e, tabType, tab) => {
     console.log('Tab opened: ' + tab);
-    let tabContent = document.getElementsByClassName(tabType + '-tab-content'),
-        i;
+    let tabContent = document.getElementsByClassName(tabType + '-tab-content');
 
-    for (i = 0; i < tabContent.length; i++)
-    {
+    for (let i = 0; i < tabContent.length; i++) {
         tabContent[i].style.display = 'none';
     }
 
     document.getElementById(tab).style.display = 'block';
-}
+};
 
-const toggleElementDisplay = (el, display) => {
-    console.log('here', el, display);
+/**
+ * Toggles the display of an element between 'none' and the given display style.
+ * @param {HTMLElement} el - The element to toggle.
+ * @param {string} display - The display style to toggle between.
+ * @param {boolean} keepAlive - Whether to keep the element displayed.
+ */
+const toggleElementDisplay = (el, display, keepAlive) => {
+    if (keepAlive && el.style.display === display) return;
     el.style.display = (el.style.display === display) ? 'none' : display;
-}
+};
 
-const openModal  = (modalName, option, adminName, apiKey) => {
-    let modal    = document.getElementById(modalName),
-    closeModal   = document.getElementById('close-' + modalName),
-    requestBody  = "options=" + option + "&admin=" + adminName + "&api_key=" + apiKey,
-    modalBoxName = modalName + '-content';
-    
-    // data-field would be used for if it's admins, or admins-settings, profile, etc.
+/**
+ * Opens a modal and fills it with content.
+ * @param {string} modalName - The ID of the modal to open.
+ * @param {string} option - The option for the modal (e.g., admin-settings).
+ * @param {string} adminName - The administrator's name.
+ * @param {string} apiKey - The API key for authentication.
+ */
+const openModal = (modalName, option, adminName, apiKey) => {
+    let modal = document.getElementById(modalName);
+    let closeModal = document.getElementById('close-' + modalName);
+    let requestBody = `options=${option}&admin=${adminName}&api_key=${apiKey}`;
+    let modalBoxName = modalName + '-content';
+
     fillContainer(modalBoxName, requestBody, 'fill');
 
     modal.style.display = 'flex';
 
-    closeModal.onclick = function() {
+    closeModal.onclick = () => {
         modal.style.display = 'none';
-        modalOpened = false;
-    }
-}
+    };
+};
 
+/**
+ * Fetches data from the server and fills the container with the response.
+ * @param {string} containerName - The ID of the container to update.
+ * @param {string} requestBody - The request body to send to the server.
+ * @param {string} fillMode - The mode to fill or append the content ('fill' or 'append').
+ */
 const fillContainer = async (containerName, requestBody, fillMode) => {
     let url = 'admin/api/fetch';
-
-    console.log(fillMode, containerName);
 
     try {
         let response = await fetch(url, {
@@ -172,8 +224,8 @@ const fillContainer = async (containerName, requestBody, fillMode) => {
         });
 
         let textResponse = await response.text();
-
         let container = document.getElementById(containerName);
+        
         if (!container) {
             console.warn(`⚠️ fillContainer: ${containerName} not found.`);
             return;
@@ -191,6 +243,13 @@ const fillContainer = async (containerName, requestBody, fillMode) => {
     }
 };
 
+/**
+ * Sends data to the server using a POST request.
+ * @param {string|FormData} content - The data to send to the server.
+ * @param {boolean} [formData=false] - Whether the data is FormData or not.
+ * @returns {Object} The response data from the server.
+ * @throws Will throw an error if the request fails.
+ */
 const pushRequests = async (content, formData = false) => {
     let response = await fetch('/admin/api/push', {
         method: 'POST',
@@ -203,6 +262,6 @@ const pushRequests = async (content, formData = false) => {
     try {
         return await response.json();
     } catch {
-        return { success: true };
+        return { success: true }; // Return a default success object if no JSON is returned.
     }
 };

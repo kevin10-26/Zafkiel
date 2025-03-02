@@ -9,7 +9,6 @@ use Twig\Environment;
 class TwigRenderer implements Renderer
 {
     private Environment $_renderer;
-    private string $_source;
     private string $_templatesLocation;
 
     public function __construct(string $templatesLocation)
