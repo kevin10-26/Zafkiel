@@ -1,9 +1,0 @@
-<div class="w-32 h-40 p-2 {{ (picture['path'] in additionnal_data['preferences']['backgroundPictures']) ? 'selected-picture-slideshow' : '' }} hover:cursor-pointer group" onclick="selectImageForSlideshow(event);">
-
-    <img class="w-full h-28 object-cover" src="{{ picture['path'] }}" alt="" />
-
-    <p class="text-center group-hover:underline group-hover:font-semibold">
-        {{ picture['filename'] }}
-    </p>
-
-</div>

@@ -1,20 +1,11 @@
 {
-<<<<<<< HEAD
+
     "name": "kevin1026/zafkiel",
     "type": "library",
     "license": "LGPL-2.1-or-later",
     "autoload": {
         "psr-4": {
             "Zafkiel\\": "src/"
-=======
-    "name": "zafkiel/test",
-    "description": "",
-    "type": "library",
-    "license": "LGPL-2.1 license",
-    "autoload": {
-        "psr-4": {
-            "Kevin1026\\": "./src/"
->>>>>>> 6b22355 (First commit)
         }
     },
     "authors": [
@@ -23,13 +14,11 @@
             "email": "kevin.bento@free.fr"
         }
     ],
-<<<<<<< HEAD
+
     "minimum-stability": "dev",
     "require": {
         "twig/twig": "^3.0"
-=======
-    "require": {
-        "zafkiel/core": "dev-dev"
->>>>>>> 6b22355 (First commit)
+        "firebase/php-jwt": "dev-main"
+
     }
 }
