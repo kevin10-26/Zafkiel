@@ -134,27 +134,8 @@ class Background
         return [
             'path'     => preg_match('/^http/i', $picture) ? urldecode($picture) : $this->_url . '/' . urldecode($picture),
             'filename' => urldecode(basename($picture)),
-            'picture'  => $this->reducePictureCompression($picture),
             'data'     => $pictureData
         ];
-    }
-
-    /**
-     * Reduces the compression of the image using Imagick and returns the image as a base64-encoded string.
-     *
-     * @param string $picture The image path.
-     * @return string The base64-encoded image.
-     */
-    private function reducePictureCompression(string $picture): string
-    {
-        $pathToPicture = preg_match('/^http/i', $picture)
-            ? $_SERVER['DOCUMENT_ROOT'] . substr(parse_url($picture, PHP_URL_PATH), 1)
-            : $picture;
-
-        $imagick = new Imagick($pathToPicture);
-        $imagick->thumbnailImage(300, 200, true);
-
-        return base64_encode($imagick->getImageBlob());
     }
 
     /**

@@ -14,8 +14,6 @@
     />
 
     <title>Zafkiel backoffice</title>
-
-    <style></style>
   </head>
   <body class="relative">
     <div class="absolute h-screen w-full">
@@ -44,6 +42,7 @@
           class="relative w-1/4 h-full py-6 bg-stone-900/[.8] rounded-l-3xl text-xl"
         >
           <img
+            data-profile-picture="currentAdmin"
             class="block w-44 h-44 mx-auto rounded-full object-cover border-2 border-solid border-white"
             src="{{ adminData['currentAdmin']['additionnal_data']['profile_picture'] }}"
             alt="Photo de profil"
@@ -214,6 +213,11 @@
 
     <div id="snackbar-container" class="flex flex-col fixed bottom-10 left-1/2 translate-x-[-50%] max-w-screen-sm bg-transparent z-10"></div>
 
+    <script>
+      window.onload = (evt) => {
+        localStorage.setItem('jwtToken', '{{ jwtToken }}');
+      }
+    </script>
     <script src="public/js/zafkiel/frontend_interactions.js"></script>
     <script src="public/js/zafkiel/slideshow.conf.js"></script>
     <script src="public/js/zafkiel/admin_profile.conf.js"></script>

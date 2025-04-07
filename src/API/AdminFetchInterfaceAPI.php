@@ -56,12 +56,12 @@ class AdminFetchInterfaceAPI
     /**
      * Retrieves and renders the slideshow preferences for the targeted admin.
      * 
-     * @param string $userConf The user configuration.
-     * @param array $adminData The admin's data.
+     * @param string $userConf The routes conf for the slideshow pictures.
+     * @param array $token The JWT containing the admin's essentiel data (name, role)
      * 
      * @return string Rendered slideshow preferences template.
      */
-    public function getDataForAdminSlideshow(
+    public function slideshowPictures(
         string $userConf,
         array $adminData
     ): string {
@@ -89,30 +89,36 @@ class AdminFetchInterfaceAPI
      * 
      * @return string Rendered user pictures template.
      */
-    public function getDataForUserPictures(
-        array $adminData,
+    public function userPictures(
         string $frontendRoutes,
-        array $pictures
+        array $adminData
     ): string {
         $background = new Background('');
 
-        $adminData['user_pictures'] = $background->getUserPictures($frontendRoutes, $adminData['name']);
+        $galleryPictures = $background->getUserPictures($frontendRoutes, $adminData['name']);
 
-        // Determine new pictures by comparing with existing ones
-        $newPictures = array_diff(
-            array_column($adminData['user_pictures'], 'path'),
-            $pictures
-        );
+        $picturesManagement = array('user_pictures' => []);
+        $matchedPictures = [];
+        $unmatchedPictures = [];
 
         // Filter and map the new pictures
-        $adminData['user_pictures'] = array_filter(array_map(function ($item) {
-            return (!is_null($item)) ? [
-                'path'     => $item,
-                'filename' => basename($item)
-            ] : '';
-        }, $newPictures));
+        foreach (array_column($galleryPictures, 'path') as $path) {
+            $pictureData = [
+                'path'     => $path,
+                'filename' => basename($path)
+            ];
 
-        return $this->renderAdminData($adminData, 'settings/admin_user_pictures.html');
+            if (in_array($path, $adminData['additionnal_data']['preferences']['backgroundPictures'])) {
+                array_push($matchedPictures, $pictureData);
+            } else {
+                array_push($unmatchedPictures, $pictureData);
+            }
+        }
+
+        $picturesManagement['user_pictures'] = array_merge($matchedPictures, $unmatchedPictures);
+        $picturesManagement['additionnal_data'] = $adminData['additionnal_data'];
+
+        return $this->renderAdminData($picturesManagement, 'settings/admin_user_pictures.html');
     }
 
     /**
