@@ -44,6 +44,7 @@ class Generator extends AdminManager
     public array $currentAdmin = [];
     public Factory $template;
     private string $_session;
+    private string $_token;
 
     /**
      * Constructor for the Generator class.
@@ -52,11 +53,12 @@ class Generator extends AdminManager
      * @param Factory $template The factory for handling template contents.
      * @param string $session The current admin session.
      */
-    public function __construct(array $_routesConfig, Factory $template, string $session)
+    public function __construct(array $_routesConfig, Factory $template, array $session)
     {
         $this->_routesConfig = $_routesConfig;
         $this->template = $template;
-        $this->_session = $session;
+        $this->_session = $session['adminName'];
+        $this->_token = $session['token'];
     }
 
     /**
@@ -82,6 +84,7 @@ class Generator extends AdminManager
 
         // Set the session color based on the admin's session status.
         foreach ($data['admins'] as $key => $value) {
+
             $data['admins'][$key]['session']['color'] = self::SESSION_STATUS_COLOR[$value['session']['status']];
         }
 
@@ -115,6 +118,7 @@ class Generator extends AdminManager
         return [
             'picturesPath' => $this->_routesConfig['frontend_components'],
             'components'   => $this->_getComponents($modules),
+            'jwtToken'     => $this->_token,
             'adminData'    => $this->getAdminData(),
         ];
     }

@@ -3,6 +3,7 @@ module.exports = {
   content: [
     "./src/Templates/html/*.html",
     "./src/Templates/html/components/**/*.html",
+    "./../../../public/js/zafkiel/*.js"
   ],
   theme: {
     extend: {

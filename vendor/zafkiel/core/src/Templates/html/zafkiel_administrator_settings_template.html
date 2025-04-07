@@ -66,20 +66,28 @@
                             </div>
 
                             <div>
-                                <div class="flex flex-row justify-between items-start h-96 text-stone-800">
-                                    <div class="w-1/4 h-full border-r-2 border-r-solid border-r-gray-400 indent-4">
-                                        <ul>
-                                            <li class="slideshow-tab-link p-4 pr-6 hover:bg-gray-200 hover:cursor-pointer" onclick="displayTab(event, 'slideshow', 'default-pictures'); toggleSlideshowGallery('on');">
-                                                Default pictures
-                                            </li>
-                                            <li class="slideshow-tab-link p-4 pr-6 hover:bg-gray-200 hover:cursor-pointer" onclick="displayTab(event, 'slideshow', 'user-pictures'); refreshUserPictures(event, '{{ adminData['currentAdmin']['name'] }}', '{{ adminData['currentAdmin']['api_key'] }}'); toggleSlideshowGallery('on');">
-                                                My gallery
-                                            </li>
-                                            <li class="slideshow-tab-link p-4 pr-6 hover:bg-gray-200 hover:cursor-pointer" onclick="displayTab(event, 'slideshow', 'upload-picture'); toggleSlideshowGallery('off');">
-                                                Upload a picture
-                                            </li>
-                                        </ul>
+                                <div class="flex flex-row justify-between items-start h-96 text-stone-800 overflow-y-auto">
+                                    <div class="w-1/4 h-full border-r-2 border-r-solid border-r-gray-400 ">
+
+                                        <div class="w-full h-1/2 indent-4">
+                                            <ul>
+                                                <li class="slideshow-tab-link p-4 pr-6 hover:bg-gray-200 hover:cursor-pointer" onclick="displayTab(event, 'slideshow', 'default-pictures'); toggleSlideshowGallery('on');">
+                                                    Default pictures
+                                                </li>
+                                                <li class="slideshow-tab-link p-4 pr-6 hover:bg-gray-200 hover:cursor-pointer" onclick="displayTab(event, 'slideshow', 'user-pictures'); refreshUserPictures(event, '{{ adminData['currentAdmin']['name'] }}', '{{ adminData['currentAdmin']['api_key'] }}'); toggleSlideshowGallery('on');">
+                                                    My gallery
+                                                </li>
+                                                <li class="slideshow-tab-link p-4 pr-6 hover:bg-gray-200 hover:cursor-pointer" onclick="displayTab(event, 'slideshow', 'upload-picture'); toggleSlideshowGallery('off');">
+                                                    Upload a picture
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <div id="slideshow-preview-image-thumbnail" class="w-full h-1/2 indent-4">
+                                            <span class="font-semibold text-xl">Image preview</span>
+                                        </div>
                                     </div>
+                                    
 
                                     <div id="admin-slideshow-modal-content" class="w-3/4 p-4 h-full overflow-auto"></div>
 

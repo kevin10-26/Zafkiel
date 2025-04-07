@@ -12,37 +12,37 @@
 
     <form id="change-admin-data" class="grid grid-cols-2 p-4">
         
-        {% include './components/profile/save_all_btn.html' %}
+        {% include './components/profile/control_profile_btn.html' %}
         
         <div class="w-fit place-self-center">
-            <img class="w-36 h-36 rounded-full" src="{{ adminData['currentAdmin']['additionnal_data']['profile_picture'] }}" alt="Your profile picture." />
+            <img data-profile-picture="currentAdmin" class="w-36 h-36 rounded-full object-cover" src="{{ adminData['currentAdmin']['additionnal_data']['profile_picture'] }}" alt="Your profile picture." />
 
             <div>
                 <label class="block mt-4 mx-auto px-4 py-2 text-center border-solid border-gray-400 rounded-md hover:border-2 hover:bg-gray-200 hover:text-stone-800 hover:cursor-pointer transition-all" for="change-profile-picture">Choose a file</label><br />
-                <input class="hidden" type="file" id="change-profile-picture" placeholder="Change my profile picture..." />
+                <input class="hidden" type="file" onchange="updateAdminProfilePicture(event);" id="change-profile-picture" placeholder="Change my profile picture..." />
             </div>
         </div>
 
         <div>
             <div>
                 <label for="admin-first-name" class="underline">Your first name</label><br />
-                <input type="text" id="admin-first-name" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Type in your first name..." value="{{ adminData['currentAdmin']['additionnal_data']['firstName'] }}" />
+                <input type="text" id="admin-first-name" data-value="{{ adminData['currentAdmin']['additionnal_data']['firstName'] }}" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Type in your first name..." value="{{ adminData['currentAdmin']['additionnal_data']['firstName'] }}" />
             </div>
 
             <div class="mt-4">
-                <label for="admin-first-name" class="underline">Your last name</label><br />
-                <input type="text" id="admin-last-name" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Type in your last name..." value="{{ adminData['currentAdmin']['additionnal_data']['lastName'] }}" />
+                <label for="admin-last-name" class="underline">Your last name</label><br />
+                <input type="text" id="admin-last-name" data-value="{{ adminData['currentAdmin']['additionnal_data']['lastName'] }}" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Type in your last name..." value="{{ adminData['currentAdmin']['additionnal_data']['lastName'] }}" />
             </div>
         </div>
 
         <div class="mr-6">
             <label for="admin-username" class="underline">Your username</label>
-            <input type="text" id="admin-username" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Type in your username..." value="{{ adminData['currentAdmin']['name'] }}" />
+            <input type="text" id="admin-username" data-value="{{ adminData['currentAdmin']['name'] }}" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Type in your username..." value="{{ adminData['currentAdmin']['name'] }}" />
         </div>
         
         <div>
             <label for="admin-email" class="underline">Your email address</label>
-            <input type="text" id="admin-email" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Type in your email address..." value="{{ adminData['currentAdmin']['email_addr'] }}" />
+            <input type="text" id="admin-email" data-value="{{ adminData['currentAdmin']['email_addr'] }}" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Type in your email address..." value="{{ adminData['currentAdmin']['email_addr'] }}" />
         </div>
 
         <div class="col-span-2 mt-6">
@@ -52,13 +52,20 @@
 
             <div class="flex flex-row justify-between items-center gap-x-4">
                 <div class="w-full">
-                    <label for="admin-email" class="underline">New password</label>
-                    <input type="text" id="admin-email" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Type in your new password..." />
+                    <label for="admin-new-password" class="underline">New password</label>
+                    <div class="relative">
+                        <input type="password" id="admin-new-password" name="password" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Type in your new password..." />
+                        <i class="fa-solid fa-eye absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 cursor-pointer" onclick="togglePasswordVisibility('admin-new-password', this)"></i>
+                    </div>
+                    <p id="profile-password-issue" class="hidden text-red-700 font-semibold mt-2"></p>
                 </div>
 
                 <div class="w-full">
-                    <label for="admin-email" class="underline">Confirm password</label>
-                    <input type="text" id="admin-email" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Confirm your new password..." />
+                    <label for="admin-confirm-password" class="underline">Confirm password</label>
+                    <div class="relative">
+                        <input type="password" id="admin-confirm-password" name="password" data-value="" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Confirm your new password..." />
+                        <i class="fa-solid fa-eye absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 cursor-pointer" onclick="togglePasswordVisibility('admin-confirm-password', this)"></i>
+                    </div>
                 </div>
             </div>
         </div>
@@ -71,21 +78,21 @@
             <div class="flex flex-row justify-between items-center gap-x-4">
                 <div class="w-full">
                     <label for="admin-address" class="underline">Address</label>
-                    <input type="text" id="admin-address" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Type in your address..." />
+                    <input type="text" id="admin-address" data-value="{{ adminData['currentAdmin']['additionnal_data']['physical_addr']['street'] }}" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Type in your address..." value="{{ adminData['currentAdmin']['additionnal_data']['physical_addr']['street'] }}" />
                 </div>
 
                 <div class="w-full">
                     <label for="admin-city-code" class="underline">ZIP / Postal code</label>
-                    <input type="text" id="admin-city-code" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Type in your city code..." />
+                    <input type="text" id="admin-city-code" data-value="{{ adminData['currentAdmin']['additionnal_data']['physical_addr']['code'] }}" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Type in your city code..." value="{{ adminData['currentAdmin']['additionnal_data']['physical_addr']['code'] }}" />
                 </div>
 
                 <div class="w-full">
                     <label for="admin-city" class="underline">City name</label>
-                    <input type="text" id="admin-city" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Type in your city..." />
+                    <input type="text" id="admin-city" data-value="{{ adminData['currentAdmin']['additionnal_data']['physical_addr']['city'] }}" class="w-full px-4 py-2 rounded-md text-stone-800 mt-2" placeholder="Type in your city..." value="{{ adminData['currentAdmin']['additionnal_data']['physical_addr']['city'] }}" />
                 </div>
             </div>
         </div>
 
-        {% include './components/profile/save_all_btn.html' %}
+        {% include './components/profile/control_profile_btn.html' %}
     </form>
 </div>
