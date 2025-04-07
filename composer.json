@@ -17,12 +17,8 @@
 
     "minimum-stability": "dev",
     "require": {
-<<<<<<< HEAD
         "twig/twig": "^3.0",
-        "firebase/php-jwt": "dev-main"
-
-=======
+        "firebase/php-jwt": "dev-main",
         "twig/twig": "^3.0"
->>>>>>> 7a862d0 (Fixed Composer issues)
     }
 }
