@@ -1,0 +1,10 @@
+<Files "composer.json">
+	Require all denied
+</Files>
+
+RewriteEngine on
+
+RewriteRule ^admin/api/fetch src/AdminAPICaller.php
+RewriteRule ^admin/api/push src/AdminAPIPusher.php
+
+# XHR calls

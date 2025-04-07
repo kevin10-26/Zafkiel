@@ -1,0 +1,49 @@
+{
+    "admin1": {
+        "name": "admin1",
+        "email_addr": "mail@example.com",
+        "password_hash": "$2y$10$YSJ5j8BmgL\/fGNJ5oWzcieZs1PVxiP4hdS2lQk6nqwYHExgODfvvO",
+        "status": "root",
+        "session": {
+            "status": "Online"
+        },
+        "api_key": "fqewcohyllvqlqkeechhhmwittvrkaiazyauwgasxyubfwbzrdcgtuwawmxp",
+        "additionnal_data": {
+            "firstName": "John",
+            "lastName": "DOE",
+            "profile_picture": "\/public\/img\/admins\/profile_pictures\/profile_picture.png",
+            "physical_addr": {
+                "street": "6 rue",
+                "code": "66610",
+                "city": "ville"
+            },
+            "preferences": {
+                "background": "slideshow",
+                "backgroundPictures": [
+                    "http:\/\/zafkiel.localhost\/vendor\/zafkiel\/core\/src\/Templates\/img\/backgrounds\/pictures\/valloire.jpg",
+                    "http:\/\/zafkiel.localhost\/vendor\/zafkiel\/core\/src\/Templates\/img\/backgrounds\/pictures\/file4.jpg",
+                    "http:\/\/zafkiel.localhost\/public\/img\/admins\/backgrounds\/admin1\/citlali_1.png"
+                ]
+            }
+        }
+    },
+    "admin2": {
+        "name": "admin2",
+        "email_addr": "dpo@univ-reims.fr",
+        "password_hash": "$2y$10$YSJ5j8BmgL\/fGNJ5oWzcieZs1PVxiP4hdS2lQk6nqwYHExgODfvvO",
+        "status": "Administrator",
+        "api_key": "gkrzfrlgvdkrjzyqqdtrapbojxowwesrbkipnvbgkfeoptslvlreefxmnsqf",
+        "session": {
+            "status": "Disconnected"
+        },
+        "additionnal_data": {
+            "profile_picture": "\/public\/img\/zafkiel\/zafkiel_logo.png",
+            "preferences": {
+                "background": "userPicture",
+                "backgroundPictures": [
+                    "\/Zafkiel-Test\/public\/img\/admins\/backgrounds\/valloire.jpg"
+                ]
+            }
+        }
+    }
+}

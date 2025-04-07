@@ -1,0 +1,20 @@
+{
+    "name": "kevin1026/zafkiel",
+    "type": "library",
+    "license": "LGPL-2.1-or-later",
+    "autoload": {
+        "psr-4": {
+            "Zafkiel\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Kévin BENTO",
+            "email": "kevin.bento@free.fr"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "twig/twig": "^3.0"
+    }
+}

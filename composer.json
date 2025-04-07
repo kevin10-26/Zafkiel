@@ -1,4 +1,5 @@
 {
+
     "name": "kevin1026/zafkiel",
     "type": "library",
     "license": "LGPL-2.1-or-later",
@@ -13,9 +14,11 @@
             "email": "kevin.bento@free.fr"
         }
     ],
+
     "minimum-stability": "dev",
     "require": {
-        "twig/twig": "^3.0",
+        "twig/twig": "^3.0"
         "firebase/php-jwt": "dev-main"
+
     }
 }
