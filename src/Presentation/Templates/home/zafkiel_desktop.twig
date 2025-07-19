@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+		<link rel="stylesheet" type="text/css" href="css/output.css"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+		<link rel="icon" href="./img/backoffice/core/zafkiel_logo.png" />
+
+		<title>Zafkiel backoffice</title>
+
+		<style>
+			input::placeholder {
+				color: #9CA3AF !important; /* gray-400 */
+			}
+		</style>
+	</head>
+	<body class="text-white bg-zinc-900" data-current-admin-id="{{ currentAdminId }}">
+
+		<div class="absolute h-screen w-full">
+			{% if loggedAdmin %}
+
+				{% include './components/slideshow/slideshow.twig' with {pref: loggedAdmin.personalData.slideshowPictures} %}
+
+			{% else %}
+
+				<img class="w-full h-56 object-cover" src="{{ adminData['currentAdmin']['additionnal_data']['preferences']['backgroundPictures'][0] }}" alt="backgroundPicture"/>
+
+			{% endif %}
+		</div>
+
+		<div class="flex flex-col justify-between items-center h-screen bg-cover bg-no-repeat">
+			<main id="main-module" class="module z-10 flex flex-row justify-between my-10 w-3/4 h-3/4 rounded-3xl backdrop-blur-sm bg-stone-800/[.6] text-gray-300">
+				<div class="flex flex-col justify-between items-center w-1/4 h-full py-6 bg-stone-900/[.7] rounded-l-3xl">
+					<div class="relative text-xl w-full h-4/5 overflow-y-auto">
+						<img data-profile-picture="currentAdmin" class="block w-44 h-44 mx-auto rounded-full object-cover border-2 border-solid border-white" src="{{ (loggedAdmin.personalData.profilePicture) ? loggedAdmin.personalData.profilePicture : './img/backoffice/core/zafkiel_logo.png' }}" alt="Photo de profil"/>
+
+						<div class="flex flex-col justify-between items-center w-full my-4">
+							<ul class="list-none w-full">
+								<li onclick="displayTab(event, 'module', 'desktop-tab');" class="hover:cursor-pointer hover:bg-gray-200/[.4] px-8 py-4">
+									<i class="fa-solid fa-house"></i>&nbsp;&nbsp;Desktop
+								</li>
+
+								<li onclick="displayTab(event, 'module', 'admin-settings');" class="hover:cursor-pointer hover:bg-gray-200/[.4] px-8 py-4">
+									<i class="fa-solid fa-gear"></i>&nbsp;&nbsp;Settings
+								</li>
+
+								<li onclick="displayTab(event, 'module', 'admin-profile');" class="hover:cursor-pointer hover:bg-gray-200/[.4] px-8 py-4">
+									<i class="fa-solid fa-user"></i>&nbsp;&nbsp;My profile&nbsp;&nbsp;
+									<i id="warning-profile-icon" class="fa-solid fa-triangle-exclamation color-[#F0B100]" style="display: none;"></i>
+									<span class="hidden" id="alerts-number-profile"></span>
+								</li>
+
+								<li onclick="displayTab(event, 'module', 'admins');" class="hover:cursor-pointer hover:bg-gray-200/[.4] px-8 py-4">
+									<i class="fa-solid fa-user-lock"></i>&nbsp;&nbsp;Administrators
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="flex flex-row justify-evenly items-center gap-x-8 w-full h-1/5 mx-auto text-3xl">
+
+						<div class="relative">
+							<p class="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] text-sm font-semibold">9+</p>
+							<i class="fa-regular fa-bell text-5xl"></i>
+						</div>
+
+						<div class="flex flex-col justify-center items-center">
+							<div id="zafkiel-taskbar-clock" class="text-sm"></div>
+							<div id="zafkiel-taskbar-date" class="text-sm"></div>
+						</div>
+					</div>
+				</div>
+
+				<div id="desktop-tab" class="module-tab-content w-3/4">
+					<form action="#" method="POST" class="w-full" onsubmit="displayResults(event);">
+						<div class="relative w-2/4 mx-auto my-8">
+							<input type="search" list="services-list" id="search-service" name="search-service" placeholder="Search for a service..." class="absolute left-1/2 translate-x-[-50%] w-full rounded-xl px-4 py-2 bg-stone-800" onkeyup="displayResults(event)"/>
+
+							<button class="absolute right-3 translate-y-1/3" type="submit">
+								<i class="fa-solid fa-magnifying-glass"></i>
+							</button>
+						</div>
+
+						<datalist id="services-list">
+							{% for app in apps %}
+
+								<option value="{{ app.name }}" data-path="{{ app.favicon }}">
+									{{ app.name }}
+								</option>
+
+							{% endfor %}
+						</datalist>
+					</form>
+
+					<div class="w-4/5 mx-auto mt-28 mb-6">
+						<p class="w-full font-semibold text-2xl">My services</p>
+					</div>
+
+					<div id="services-container" class="grid grid-cols-3 gap-x-6 w-4/5 h-3/5 mx-auto overflow-y-auto">
+						{% for key, app in apps %}
+
+							<div class="w-44 h-44 p-2 hover:bg-gray-400/[.5] hover:cursor-pointer" onclick="openApp(event, '{{ key }}');">
+								<img class="block w-28 h-28 mx-auto rounded-full object-cover" src="{{ app.favicon }}" alt="Icon for app: {{ app.name }}"/>
+
+								<p class="font-semibold text-center mt-2 text-lg">
+									{{ app.name }}
+								</p>
+							</div>
+
+						{% endfor %}
+					</div>
+				</div>
+
+				{% include './home/zafkiel_admin_manager.twig' with {data: adminData} %}
+				{% include './home/zafkiel_admin_profile.twig' with {data: adminData} %}
+				{% include './home/zafkiel_admin_settings.twig' with {data: adminData} %}
+			</main>
+
+			{% for template in templates %}
+				{{ template|raw }}
+			{% endfor %}
+
+			<footer class="flex flex-row justify-evenly items-center w-full gap-x-6 h-16 backdrop-blur-sm bg-stone-800/[.8] text-gray-300 z-10">
+				<div class="flex flex-row justify-start items-center gap-x-6 w-4/5 h-full mx-auto text-3xl">
+					<img class="w-auto h-full p-2 hover:bg-gray-400/[.4]" src="./img/backoffice/core/zafkiel_logo.png" alt="Zafkiel logo."/>
+
+					<div class="flex flex-row items-center gap-x-0.5 h-full border-x-2 border-solid px-6">
+						<i class="fa-solid fa-power-off items-center h-full p-4 hover:bg-gray-400/[.4]" style="display: flex"></i>
+						<i class="fa-solid fa-user items-center h-full p-4 hover:bg-gray-400/[.4]" style="display: flex"></i>
+						<i class="fa-solid fa-arrow-right-arrow-left items-center h-full p-4 hover:bg-gray-400/[.4]" style="display: flex"></i>
+					</div>
+
+					<div class="flex flex-row justify-start items-start gap-x-0.5">
+						{% for key, module in components['modules']['items'] %}
+							{% if module['pinned'] %}
+
+								<div class="p-2 hover:bg-gray-400/[.4]" onclick="openService(event, '{{ key }}')">
+									<img class="w-12 h-12" src="{{ components['modules']['moduleIconsPath'] }}/{{ module['path'] }}" alt="Icon for service : {{ module['name'] }}"/>
+								</div>
+
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+			</footer>
+		</div>
+
+		<div id="snackbar-container" class="flex flex-col fixed bottom-10 left-1/2 translate-x-[-50%] max-w-screen-sm bg-transparent z-10"></div>
+
+		<script src="./js/zafkiel/auth.js"></script>
+		<script src="./js/zafkiel/frontend_interactions.js"></script>
+		<script src="./js/zafkiel/slideshow.conf.js"></script>
+		<script src="./js/zafkiel/admin_profile.conf.js"></script>
+		<script src="./js/zafkiel/ZafkielSnackbar.js"></script>
+		<script src="./js/zafkiel/online-users.js"></script>
+		<script src="./js/zafkiel/admin_management.js"></script>
+
+		<script src="./js/zafkiel/ZafkielFrontend.js"></script>
+		<script src="./js/zafkiel/desktop.js"></script>
+
+		<script src="./js/zafkiel/handlers.js"></script>
+	</body>
+</html>

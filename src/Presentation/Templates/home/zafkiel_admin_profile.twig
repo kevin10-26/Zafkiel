@@ -1,0 +1,98 @@
+<div id="admin-profile" class="module-tab-content relative hidden w-3/4 p-4 overflow-y-auto">
+    <div id="warning-profile-message" class="fixed top-2 right-5 h-10 hidden flex-row justify-between items-center text-center">
+        <div class="h-full bg-yellow-600 px-4 py-2 rounded-l-md">
+            You have some unsaved changes. Please save them before leaving!
+        </div>
+        <div class="flex justify-center items-center h-full bg-yellow-700 px-4 py-2 rounded-r-md text-xl hover:cursor-pointer" onclick="toggleChangesWarning();">
+            &times;
+        </div>
+    </div>
+
+    <h1 class="text-3xl font-semibold mb-6">My admin profile</h1>
+
+    <form id="change-admin-data" class="grid grid-cols-2 p-4">
+        
+        {% include './components/profile/control_button.twig' %}
+        
+        <div class="w-fit place-self-center">
+            <img data-profile-picture="currentAdmin" class="w-36 h-36 rounded-full object-cover" src="{{ (loggedAdmin.personalData.profilePicture) ? loggedAdmin.personalData.profilePicture : './img/backoffice/core/zafkiel_logo.png' }}" alt="Your profile picture." />
+
+            <div>
+                <label class="block mt-4 mx-auto px-4 py-2 text-center border-solid border-gray-400 rounded-md hover:border-2 hover:bg-gray-200 hover:text-stone-800 hover:cursor-pointer transition-all" for="change-profile-picture">Choose a file</label><br />
+                <input class="hidden" type="file" onchange="updateAdminProfilePicture(event);" id="change-profile-picture" placeholder="Change my profile picture..." />
+            </div>
+        </div>
+
+        <div>
+            <div>
+                <label for="admin-first-name" class="underline">Your first name</label><br />
+                <input type="text" id="admin-first-name" data-value="{{ loggedAdmin.personalData.firstName }}" class="w-full px-4 py-2 rounded-md text-stone-800 bg-gray-50 mt-2" placeholder="Type in your first name..." value="{{ loggedAdmin.personalData.firstName }}" />
+            </div>
+
+            <div class="mt-4">
+                <label for="admin-last-name" class="underline">Your last name</label><br />
+                <input type="text" id="admin-last-name" data-value="{{ loggedAdmin.personalData.lastName }}" class="w-full px-4 py-2 rounded-md text-stone-800 bg-gray-50 mt-2" placeholder="Type in your last name..." value="{{ loggedAdmin.personalData.lastName }}" />
+            </div>
+        </div>
+
+        <div class="mr-6">
+            <label for="admin-username" class="underline">Your username</label>
+            <input type="text" id="admin-username" data-value="{{ loggedAdmin.name }}" class="w-full px-4 py-2 rounded-md text-stone-800 bg-gray-50 mt-2" placeholder="Type in your username..." value="{{ loggedAdmin.name }}" />
+        </div>
+        
+        <div>
+            <label for="admin-email" class="underline">Your email address</label>
+            <input type="text" id="admin-email" data-value="{{ loggedAdmin.emailAddr }}" class="w-full px-4 py-2 rounded-md text-stone-800 bg-gray-50 mt-2" placeholder="Type in your email address..." value="{{ loggedAdmin.emailAddr }}" />
+        </div>
+
+        <div class="col-span-2 mt-6">
+            <p class="text-2xl font-semibold mb-2">
+                Change my password
+            </p>
+
+            <div class="flex flex-row justify-between items-center gap-x-4">
+                <div class="w-full">
+                    <label for="admin-new-password" class="underline">New password</label>
+                    <div class="relative">
+                        <input type="password" id="admin-new-password" name="password" class="w-full px-4 py-2 rounded-md text-stone-800 bg-gray-50 mt-2" placeholder="Type in your new password..." />
+                        <i class="fa-solid fa-eye absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 cursor-pointer" onclick="togglePasswordVisibility('admin-new-password', this)"></i>
+                    </div>
+                    <p id="profile-password-issue" class="hidden text-red-700 font-semibold mt-2"></p>
+                </div>
+
+                <div class="w-full">
+                    <label for="admin-confirm-password" class="underline">Confirm password</label>
+                    <div class="relative">
+                        <input type="password" id="admin-confirm-password" name="password" data-value="" class="w-full px-4 py-2 rounded-md text-stone-800 bg-gray-50 mt-2" placeholder="Confirm your new password..." />
+                        <i class="fa-solid fa-eye absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 cursor-pointer" onclick="togglePasswordVisibility('admin-confirm-password', this)"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 col-span-2">
+            <p class="text-2xl font-semibold mb-2">
+                Coordinates
+            </p>
+
+            <div class="flex flex-row justify-between items-center gap-x-4">
+                <div class="w-full">
+                    <label for="admin-address" class="underline">Address</label>
+                    <input type="text" id="admin-address" data-value="{{ loggedAdmin.personalData.street }}" class="w-full px-4 py-2 rounded-md text-stone-800 bg-gray-50 mt-2" placeholder="Type in your address..." value="{{ loggedAdmin.personalData.street }}" />
+                </div>
+
+                <div class="w-full">
+                    <label for="admin-city-code" class="underline">ZIP / Postal code</label>
+                    <input type="text" id="admin-city-code" data-value="{{ loggedAdmin.personalData.postalCode }}" class="w-full px-4 py-2 rounded-md text-stone-800 bg-gray-50 mt-2" placeholder="Type in your city code..." value="{{ loggedAdmin.personalData.postalCode }}" />
+                </div>
+
+                <div class="w-full">
+                    <label for="admin-city" class="underline">City name</label>
+                    <input type="text" id="admin-city" data-value="{{ loggedAdmin.personalData.city }}" class="w-full px-4 py-2 rounded-md text-stone-800 bg-gray-50 mt-2" placeholder="Type in your city..." value="{{ loggedAdmin.personalData.city }}" />
+                </div>
+            </div>
+        </div>
+
+        {% include './components/profile/control_button.twig' %}
+    </form>
+</div>

@@ -1,0 +1,55 @@
+<div class="text-stone-800 my-10">
+    <p class="text-center text-3xl font-semibold">
+        Admin : {{ name }}
+    </p>
+    <div>
+        <span class="text-xl font-semibold">
+            Change admin status
+        </span>
+        
+        <p>
+            You can change this admin's status. Note that you can choose between 3 different status : root or admin. The rule has it that an admin who wants to upgrade another must have higher powers than the latter. Note that the root rank gives the access to all features of Zafkiel
+        </p>
+        <p class="italic text-sm my-4">
+            NB : The root rank cannot be transfered to another admin.
+        </p>
+
+        {% if permissions['role'] == 'root' %}
+
+        <form action="#">
+            <select class="px-4 py-2" name="admin-status" id="admin-status">
+
+                <option value="root">Root</option>
+                <option value="admin">Administrator</option>
+                
+            </select>
+
+            <input class="ml-4 border-gray-300 border-solid border-2 rounded-md hover:bg-gray-300 px-4 py-2" type="submit" />
+        </form>
+
+        {% else %}
+
+        <p>
+            You cannot modify this admin's status.
+        </p>
+        {% endif %}
+    </div>
+
+    {% if permissions['role'] == 'root' %}
+    <div class="my-4">
+        <span class="text-xl text-red-800 font-semibold">
+            Danger zone
+        </span>
+
+        <div class="flex flex-col justify-start items-start gap-y-6 mt-4">
+            <button class="w-2/5 px-4 py-2 rounded-md border-2 border-solid border-red-800 bg-red-800 text-white hover:bg-transparent hover:text-stone-800" onclick="dangerousAction(event, 'deactivate')">
+                Deactivate temporarily this account
+            </button>
+
+            <button class="w-2/5 px-4 py-2 rounded-md border-2 border-solid border-red-800 bg-white hover:bg-red-800 hover:text-white" onclick="dangerousAction(event, 'delete')">
+                Delete this account
+            </button>
+        </div>
+    </div>
+    {% endif %}
+</div>

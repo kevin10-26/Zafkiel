@@ -1,0 +1,19 @@
+<div class="w-full h-56 relative">
+
+    <div id="slideshow-settings-container" class="relative w-full h-full overflow-hidden">
+        {% for picture in pref %}
+            <div class="slides-settings absolute inset-0 opacity-0 transition-opacity duration-1000 hidden">
+                <img 
+                    src="{{ picture.picturePath }}" 
+                    alt="Image {{ loop.index }}" 
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                >
+                <div class="absolute bottom-4 left-4 bg-black bg-opacity-50 text-white p-2 rounded">
+                    {{ picture.picturePath|split('/')|last }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    
+</div>

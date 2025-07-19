@@ -1,0 +1,28 @@
+<div id="admin-information" class="admin-monitoring-tab-content text-stone-800 my-10">
+    <div class="grid grid-cols-2 gap-4">
+        <div class="flex flex-row gap-4 items-center col-span-2 mb-4">
+            <img class="w-24 h-24 rounded-full" src="{{ admin.personalData.profilePicture }}" alt="Admin Avatar" />
+
+            <p class="text-lg font-semibold">{{ admin.name }}</p>
+        </div>
+        
+        <div class="p-2 row-start-2 gap-4">
+            <div class="flex flex-row justify-start items-center">
+                <div class="w-4 h-4 rounded-full mr-2" style="background-color: {{ admin.sessionStatus.color }};"></div>
+                <p>
+                    {{ admin.sessionStatus.status ? 'Online' : 'Offline' }}
+                </p>
+            </div>
+        </div>
+
+        <div class="row-start-3">
+            <p class="text-lg text-stone-800"><span class="underline">E-mail address:</span> {{ admin.emailAddr }}</p>
+        </div>
+        
+        <div class="row-start-3">
+            <p class="text-lg text-stone-800"><span class="underline">Status:</span> {{ admin.status }}</p>
+        </div>
+    </div>
+</div>
+
+<div id="danger-zone" class="admin-monitoring-tab-content w-full p-4 h-full overflow-auto hidden"></div>
