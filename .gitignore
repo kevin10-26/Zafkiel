@@ -1,0 +1,12 @@
+.env
+.idea/
+bin/
+config/
+migrations-db.php
+migrations.php
+migrations/
+node_modules/
+private_key_pkcs8.pem
+public/.htaccess
+public/img/admins/
+vendor/
